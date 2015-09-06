@@ -22,14 +22,10 @@ public class ActivityB extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b);
-
         openActivityBButton = (Button) findViewById(R.id.button);
         openActivityCButton = (Button) findViewById(R.id.button2);
-
         messageTextView = (TextView) findViewById(R.id.messageTextView);
-
         Intent receivedIntent = getIntent();
-
         final ArrayList<String> list = receivedIntent.getStringArrayListExtra(KeyHelper.DATA);
 
         if (list !=null) {

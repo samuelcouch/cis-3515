@@ -13,25 +13,18 @@ import java.sql.Array;
 import java.util.ArrayList;
 
 public class ActivityA extends Activity {
-
     Button openActivityBButton;
     Button openActivityCButton;
     TextView messageTextView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a);
-
         openActivityBButton = (Button) findViewById(R.id.button);
         openActivityCButton = (Button) findViewById(R.id.button2);
-
         messageTextView = (TextView) findViewById(R.id.messageTextView);
-
         Intent receivedIntent = getIntent();
-
         final ArrayList<String> list = receivedIntent.getStringArrayListExtra(KeyHelper.DATA);
 
         if (list != null){
@@ -44,7 +37,6 @@ public class ActivityA extends Activity {
         } else {
             messageTextView.setText("Nothing to see here yet. Navigate around!");
         }
-
 
         View.OnClickListener ocl = new View.OnClickListener() {
             @Override
@@ -61,7 +53,6 @@ public class ActivityA extends Activity {
                     launchActivityIntent.putStringArrayListExtra(KeyHelper.DATA, newList);
                 }startActivity(launchActivityIntent);
             }
-
         };
         openActivityBButton.setOnClickListener(ocl);
 
@@ -69,7 +60,6 @@ public class ActivityA extends Activity {
             @Override
             public void onClick(View v){
                 Intent launchActivityIntent = new Intent(ActivityA.this, ActivityC.class);
-
                 String dataString = "then was opened by Activity A ";
                 if (list!= null) {
                     list.add(dataString);
@@ -80,12 +70,9 @@ public class ActivityA extends Activity {
                     launchActivityIntent.putStringArrayListExtra(KeyHelper.DATA, newList);
                 }startActivity(launchActivityIntent);
             }
-
         };
         openActivityCButton.setOnClickListener(ocl2);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
