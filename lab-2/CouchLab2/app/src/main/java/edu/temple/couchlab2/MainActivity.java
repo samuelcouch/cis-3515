@@ -8,18 +8,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.GridLayout;
 
 public class MainActivity extends Activity {
     Spinner spinnerColor;
-    GridLayout colorPreview;
-    Button goToColor;
 
     private ArrayAdapter<String> adapter;
 
     private static final String[] colors = {
+            "SELECT A COLOR",
             "red",
             "blue",
             "green",
@@ -51,8 +48,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         spinnerColor = (Spinner)findViewById(R.id.colorspinner);
-        colorPreview = (GridLayout)findViewById(R.id.colorPreview);
-        goToColor = (Button)findViewById(R.id.gotoColor);
 
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, colors);
@@ -60,24 +55,23 @@ public class MainActivity extends Activity {
                 android.R.layout.simple_spinner_dropdown_item);
         spinnerColor.setAdapter(adapter);
 
+        spinnerColor.setSelection(0);
+
         spinnerColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                colorPreview.setBackgroundColor(android.graphics.Color.parseColor(spinnerColor.getSelectedItem().toString()));
+                String picked = spinnerColor.getSelectedItem().toString();
+
+                if (!picked.equals("SELECT A COLOR")){
+                    Intent colorIntent = new Intent(MainActivity.this, backgroundActivity.class);
+
+                    colorIntent.putExtra("COLOR_FROM_SPINNER", picked);
+                    startActivity(colorIntent);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        goToColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent colorIntent = new Intent(MainActivity.this, backgroundActivity.class);
-
-                colorIntent.putExtra("COLOR_FROM_SPINNER", spinnerColor.getSelectedItem().toString());
-                startActivity(colorIntent);
             }
         });
     }
