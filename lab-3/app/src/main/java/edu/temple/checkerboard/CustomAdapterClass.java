@@ -13,21 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomAdapterClass extends BaseAdapter {
-    private int cap = 0;
+    private int c = 0;
     private Context context;
 
     private int counter = 0;
-    private boolean color_flag = true; // when true, first element gets colored, when false, second element
+    private boolean color_flag = true;
 
     private ArrayList<TextView> list = new ArrayList<TextView>();
     public CustomAdapterClass(int n, Context context) {
-        cap = n;
+        c = n;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return cap;
+        return c;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class CustomAdapterClass extends BaseAdapter {
             }
             counter++;
         }
-        if (counter == Math.sqrt(cap)) {
+        if (counter == Math.sqrt(c)) {
             color_flag = !color_flag;
             counter =0;
         }
