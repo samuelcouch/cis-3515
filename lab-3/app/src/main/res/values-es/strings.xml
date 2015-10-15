@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Laboratorio de 5</string>
+
+    <string name="action_settings">Ajustes</string>
+    <string name="display_button">¡Mostrar!</string>
+
+    <string-array name="numbers">
+        <item>uno</item>
+        <item>dós</item>
+        <item>trés</item>
+        <item>cuatro</item>
+        <item>cinco</item>
+        <item>seis</item>
+        <item>siete</item>
+        <item>ocho</item>
+        <item>nueve</item>
+        <item>diez</item>
+        <item>once</item>
+        <item>doce</item>
+        <item>trece</item>
+        <item>catorce</item>
+        <item>quince</item>
+        <item>dieciséis</item>
+        <item>diecisiete</item>
+        <item>dieciocho</item>
+        <item>diecinueve</item>
+        <item>veinte</item>
+        <item>veinteuno</item>
+        <item>veintedós</item>
+        <item>veintetrés</item>
+        <item>veintecuatro</item>
+        <item>veintecinco</item>
+        <item>veinteseis</item>
+        <item>veintesiete</item>
+        <item>veinteocho</item>
+        <item>veintenueve</item>
+        <item>treinta</item>
+        <item>treinta y uno</item>
+        <item>treinta y dós</item>
+        <item>treinta y trés</item>
+        <item>treinta y cuatro</item>
+        <item>treinta y cinco</item>
+        <item>treinta y seis</item>
+        <item>treinta y siete</item>
+        <item>treinta y ocho</item>
+        <item>treinta y nueve</item>
+        <item>cuarenta</item>
+        <item>cuarenta y uno</item>
+        <item>cuarenta y dós</item>
+        <item>cuarenta y trés</item>
+        <item>cuarenta y cuatro</item>
+        <item>cuarenta y cinco</item>
+        <item>cuarenta y seis</item>
+        <item>cuarenta y siete</item>
+        <item>cuarenta y ocho</item>
+        <item>cuarenta y nueve</item>
+        <item>cincuenta</item>
+        <item>cincuenta y uno</item>
+        <item>cincuenta y dós</item>
+        <item>cincuenta y trés</item>
+        <item>cincuenta y cuatro</item>
+        <item>cincuenta y cinco</item>
+        <item>cincuenta y seis</item>
+        <item>cincuenta y siete</item>
+        <item>cincuenta y ocho</item>
+        <item>cincuenta y nueve</item>
+        <item>sesenta</item>
+        <item>sesenta y uno</item>
+        <item>sesenta y dós</item>
+        <item>sesenta y trés</item>
+        <item>sesenta y cuatro</item>
+        <item>sesenta y cinco</item>
+        <item>sesenta y seis</item>
+        <item>sesenta y siete</item>
+        <item>sesenta y ocho</item>
+        <item>sesenta y nueve</item>
+        <item>setenta</item>
+        <item>setenta y uno</item>
+        <item>setenta y dós</item>
+        <item>setenta y trés</item>
+        <item>setenta y cuatro</item>
+        <item>setenta y cinco</item>
+        <item>setenta y seis</item>
+        <item>setenta y siete</item>
+        <item>setenta y ocho</item>
+        <item>setenta y nueve</item>
+        <item>ochenta</item>
+        <item>ochenta y uno</item>
+        <item>ochenta y dós</item>
+        <item>ochenta y trés</item>
+        <item>ochenta y cuatro</item>
+        <item>ochenta y cinco</item>
+        <item>ochenta y seis</item>
+        <item>ochenta y siete</item>
+        <item>ochenta y ocho</item>
+        <item>ochenta y nueve</item>
+        <item>noventa</item>
+        <item>noventa y uno</item>
+        <item>noventa y dós</item>
+        <item>noventa y trés</item>
+        <item>noventa y cuatro</item>
+        <item>noventa y cinco</item>
+        <item>noventa y seis</item>
+        <item>noventa y siete</item>
+        <item>noventa y ocho</item>
+        <item>noventa y nueve</item>
+        <item>cien</item>
+    </string-array>
+</resources>

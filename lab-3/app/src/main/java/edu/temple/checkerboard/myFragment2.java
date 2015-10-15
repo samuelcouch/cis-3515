@@ -19,6 +19,7 @@ public class myFragment2 extends Fragment {
     private String mParam2;
     private GridView gridView;
     private OnFragmentInteractionListener mListener;
+    String[] numbers;
 
 
     // TODO: Rename and change types and number of parameters
@@ -36,6 +37,7 @@ public class myFragment2 extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_my_fragment2, container, false);
         gridView = (GridView)v.findViewById(R.id.myGridView);
+        numbers = getActivity().getResources().getStringArray(R.array.numbers);
 
         return v;
     }
@@ -46,7 +48,7 @@ public class myFragment2 extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             int n = args.getInt("num");
-            gridView.setAdapter(new CustomAdapterClass(n * n, getActivity()));
+            gridView.setAdapter(new CustomAdapterClass(n * n, getActivity(), this.numbers));
             gridView.setNumColumns(n);
         }
 
@@ -55,7 +57,7 @@ public class myFragment2 extends Fragment {
 
     public void newNumber(int n){
 
-        gridView.setAdapter(new CustomAdapterClass(n * n, getActivity()));
+        gridView.setAdapter(new CustomAdapterClass(n * n, getActivity(), this.numbers));
         gridView.setNumColumns(n);
     }
     /*@Override

@@ -15,14 +15,16 @@ import java.util.List;
 public class CustomAdapterClass extends BaseAdapter {
     private int cap = 0;
     private Context context;
+    String[] numbers;
 
     private int counter = 0;
     private boolean color_flag = true; // when true, first element gets colored, when false, second element
 
     private ArrayList<TextView> list = new ArrayList<TextView>();
-    public CustomAdapterClass(int n, Context context) {
+    public CustomAdapterClass(int n, Context context, String[] numbers) {
         cap = n;
         this.context = context;
+        this.numbers = numbers;
     }
 
     @Override
@@ -45,7 +47,11 @@ public class CustomAdapterClass extends BaseAdapter {
 
 
         TextView text = new TextView(context);
-        text.setText(String.valueOf(position+1));
+        text.setText(numbers[position]);
+        text.setGravity(Gravity.CENTER);
+        text.setTextSize(10);
+        text.setMinHeight(110);
+        text.setPadding(2, 2, 2, 2);
 
         if (color_flag) {
             if ((position % 2 == 0)) {
@@ -85,7 +91,7 @@ public class CustomAdapterClass extends BaseAdapter {
             color_flag = !color_flag;
             counter =0;
         }
-        text.setGravity(Gravity.CENTER);
+
         return text;
     }
 }
