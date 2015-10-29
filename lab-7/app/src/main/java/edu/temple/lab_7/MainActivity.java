@@ -42,24 +42,28 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         switch(id){
+            // New Tab pressed
             case (R.id.newTab):
                 Fragment tab = WebFragment.newInstance();
                 urls.add(tab);
                 count++;
                 loadTab(R.id.web, tab);
                 return true;
-            case (R.id.prev):
+            // Previous tab pressed
+            case (R.id.back):
                 if(count > 1){
                     count--;
                     loadTab(R.id.web, urls.get(count-1));
                 }
                 return true;
-            case (R.id.next):
+            // Next tab pressed
+            case (R.id.forward):
                 if(count < urls.size()){
                     loadTab(R.id.web, urls.get(count));
                     count++;
                 }
                 return true;
+            // Do the default
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -69,6 +73,10 @@ public class MainActivity extends Activity {
         FragmentManager fragMan = getFragmentManager();
         FragmentTransaction fragTran = fragMan.beginTransaction();
 
+        // In this case, the fragment is replaced.
+        // The website data is lost, but the url string is stored so we can requery it when the
+        // tab is called upon again (back/next)
+        // A PagerView would have been a better approach here. ¯\_(ツ)_/¯
         fragTran.replace(frame, frag);
 
         fragTran.commit();

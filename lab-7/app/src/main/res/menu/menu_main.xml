@@ -10,14 +10,14 @@
         android:showAsAction="always"/>
 
     <item
-        android:id="@+id/prev"
-        android:title="Prev"
+        android:id="@+id/back"
+        android:title="Back"
         android:icon="@drawable/ic_arrow_back_black_18dp"
         android:showAsAction="always"/>
 
     <item
-        android:id="@+id/next"
-        android:title="Next"
+        android:id="@+id/forward"
+        android:title="Forward"
         android:icon="@drawable/ic_arrow_forward_black_18dp"
         android:showAsAction="always"/>
 </menu>
