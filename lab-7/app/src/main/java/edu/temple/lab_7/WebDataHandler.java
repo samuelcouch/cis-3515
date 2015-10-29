@@ -43,7 +43,7 @@ public class WebDataHandler extends AsyncTask<String, Void, String>{
 
             return response.toString();
         } catch (MalformedURLException e){
-            Log.d("MalformedURLException", e.toString());
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,6 +59,8 @@ public class WebDataHandler extends AsyncTask<String, Void, String>{
     }
 
     public String cleanUrl(String url){
+        url = url.toLowerCase();
+
         if(url.startsWith("http://") || url.startsWith("https://")){
             return url;
         }
