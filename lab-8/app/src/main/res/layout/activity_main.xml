@@ -10,6 +10,7 @@
         android:id="@+id/url"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:inputType="textUri"
         android:hint="URL"/>
     <Spinner
         android:id="@+id/interval"

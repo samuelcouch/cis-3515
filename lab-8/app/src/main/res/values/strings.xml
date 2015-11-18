@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">lab-8</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="interval_options">
+        <item>Pick an Interval</item>
+        <item>1m</item>
+        <item>5m</item>
+        <item>10m</item>
+        <item>15m</item>
+    </string-array>
+    <string name="title_activity_status">StatusActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
