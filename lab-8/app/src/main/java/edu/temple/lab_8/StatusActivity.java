@@ -51,7 +51,9 @@ public class StatusActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.addFile) {
+            Intent launchActivityIntent = new Intent(StatusActivity.this, MainActivity.class);
+            startActivity(launchActivityIntent);
             return true;
         }
 

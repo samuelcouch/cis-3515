@@ -68,7 +68,6 @@ public class FileWatcher extends Service {
     }
 
     private void diffAll(){
-
         while(true) {
             if (!watchList.isEmpty() && (System.currentTimeMillis()>lastCheck+(localInterval * 1000))) {
                 lastCheck = System.currentTimeMillis();
@@ -92,36 +91,37 @@ public class FileWatcher extends Service {
 
     }
 
-    private void diff(String newUrl){
+    private void diff(String urlToCheck){
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
 
-            URL url = new URL(newUrl);
+            URL url = new URL(urlToCheck);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
-            String response = "",tmpResponse;
+            String response = "";
 
-            tmpResponse = reader.readLine();
+            String tmpResponse = reader.readLine();
+
             while(tmpResponse != null){
                 response = response + tmpResponse;
                 tmpResponse = reader.readLine();
             }
 
-            md.update(response.getBytes(),0,response.length());
-            byte[] temp = md.digest();
+            md.update(response.getBytes(), 0, response.length());
+            byte[] newFileHash = md.digest();
 
-            if(byteCheck.containsKey(newUrl)){
-                if(!Arrays.equals(byteCheck.get(newUrl), temp)){
-                    byteCheck.put(newUrl, temp);
+            if(byteCheck.containsKey(urlToCheck)){
+                if(!Arrays.equals(byteCheck.get(urlToCheck), newFileHash)){
+                    byteCheck.put(urlToCheck, newFileHash);
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
                     String currTime = sdf.format(new Date());
-                    updates.add(newUrl +" "+ currTime);
-                    showNotification(newUrl);
+                    updates.add(urlToCheck +" updated at: "+ currTime);
+                    showNotification(urlToCheck);
                 }
             }
             else{
-                byteCheck.put(newUrl, temp);
+                byteCheck.put(urlToCheck, newFileHash);
             }
 
         } catch (IOException e) {
