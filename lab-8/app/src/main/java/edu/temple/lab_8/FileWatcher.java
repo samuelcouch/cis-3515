@@ -22,24 +22,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by samcouch on 11/11/15.
+ * Created by samcouch on 11/9/15.
  */
 public class FileWatcher extends Service {
-    private int NOTIFICATION = 678912345;
+    private int NOTIFICATION_ID = 678912345;
+    private NotificationManager notificationManager;
+
     private final IBinder fileWatchBinder = new FileWatchBinder();
 
-    private ArrayList<String> watchList;
-    private ArrayList<String> updates;
-    private Map<String,byte[]> byteCheck;
+    private ArrayList<WatchedFile> watchList;
+    private ArrayList<String> updatedFiles;
+
     private int localInterval;
-    private NotificationManager notificationManager;
     private long lastCheck;
+
+    public class FileWatchBinder extends Binder{
+        FileWatcher getService(){
+            return FileWatcher.this;
+        }
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
         watchList = new ArrayList<>();
-        byteCheck = new HashMap<>();
-        updates = new ArrayList<>();
+        updatedFiles = new ArrayList<>();
         localInterval = -1;
         lastCheck = 0;
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
@@ -57,9 +63,18 @@ public class FileWatcher extends Service {
     }
 
     public void watchNew(String file, int checkTime){
-        if(!watchList.contains(file)) {
-            diff(file);
-            watchList.add(file);
+        boolean newFile = true;
+
+        for(WatchedFile watched : watchList){
+            if(watched.url.equals(file)){
+                newFile = false;
+            }
+        }
+
+        if(newFile) {
+            WatchedFile nWatch = new WatchedFile(file);
+            diff(nWatch);
+            watchList.add(nWatch);
         }
 
         if(this.localInterval != checkTime){
@@ -69,18 +84,20 @@ public class FileWatcher extends Service {
 
     private void diffAll(){
         while(true) {
-            if (!watchList.isEmpty() && (System.currentTimeMillis()>lastCheck+(localInterval * 1000))) {
+            if (!watchList.isEmpty() && (System.currentTimeMillis() > lastCheck+ (localInterval * 1000))) {
+
                 lastCheck = System.currentTimeMillis();
-                for (String file : watchList) {
+
+                for (WatchedFile file : watchList) {
                     diff(file);
                 }
+
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-            else{
+            }  else{
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
@@ -91,11 +108,11 @@ public class FileWatcher extends Service {
 
     }
 
-    private void diff(String urlToCheck){
+    private void diff(WatchedFile fileToCheck){
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
 
-            URL url = new URL(urlToCheck);
+            URL url = new URL(fileToCheck.url);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
@@ -111,18 +128,16 @@ public class FileWatcher extends Service {
             md.update(response.getBytes(), 0, response.length());
             byte[] newFileHash = md.digest();
 
-            if(byteCheck.containsKey(urlToCheck)){
-                if(!Arrays.equals(byteCheck.get(urlToCheck), newFileHash)){
-                    byteCheck.put(urlToCheck, newFileHash);
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
-                    String currTime = sdf.format(new Date());
-                    updates.add(urlToCheck +" updated at: "+ currTime);
-                    showNotification(urlToCheck);
-                }
+
+
+            if(!fileToCheck.hash.equals(newFileHash)){
+                fileToCheck.hash = newFileHash;
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
+                String currTime = sdf.format(new Date());
+                updatedFiles.add(fileToCheck.url + ":: updated at: " + currTime);
+                notifyUser(fileToCheck.url);
             }
-            else{
-                byteCheck.put(urlToCheck, newFileHash);
-            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,37 +148,29 @@ public class FileWatcher extends Service {
         }
     }
 
-    private void showNotification(String file) {
+    private void notifyUser(String file) {
         Intent intent = new Intent(this, StatusActivity.class);
-        intent.putExtra("FILE_UPDATES", updates);
+        intent.putExtra("FILE_UPDATES", updatedFiles);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Notification notification = new Notification.Builder(this)
-                .setSmallIcon(android.R.drawable.stat_notify_more)
+                .setSmallIcon(android.R.drawable.arrow_up_float)
                 .setTicker(file)
                 .setWhen(System.currentTimeMillis())
                 .setContentTitle("FileWatcher")
-                .setContentText("There were updates to one or more files you are watching")
+                .setContentText("There were updates to one or more files that you are watching")
                 .setContentIntent(contentIntent)
                 .build();
 
-        notificationManager.cancel(NOTIFICATION);
-        notificationManager.notify(NOTIFICATION, notification);
+        notificationManager.cancel(NOTIFICATION_ID);
+        notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
     @Override
     public void onDestroy() {
-        // Cancel the persistent notification.
-        notificationManager.cancel(NOTIFICATION);
+        notificationManager.cancel(NOTIFICATION_ID);
         super.onDestroy();
-    }
-
-
-    public class FileWatchBinder extends Binder{
-        FileWatcher getService(){
-            return FileWatcher.this;
-        }
     }
 }
